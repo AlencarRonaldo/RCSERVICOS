@@ -38,19 +38,19 @@ function Hero() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-zinc-900 leading-[1.1] tracking-tight mb-6">
-            Seu sistema{' '}
+            Travou?{' '}
             <span className="bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
-              parou?
+              Queimou?
             </span>
-            {' '}Nós resolvemos o que{' '}
+            {' '}Parou de funcionar?{' '}
             <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              outros não querem consertar.
+              A gente conserta.
             </span>
           </h1>
 
           <p className="text-lg lg:text-xl text-zinc-500 mb-10 max-w-3xl mx-auto leading-relaxed">
-            Chega de esperar por técnicos que só querem obras grandes.{' '}
-            <strong className="text-zinc-700">Somos focados em reparos emergenciais e diagnósticos complexos em São Paulo.</strong>{' '}
+            Elétrica, fechadura, câmera ou portão com defeito?{' '}
+            <strong className="text-zinc-700">Somos especialistas em reparos emergenciais e diagnósticos complexos.</strong>{' '}
             Resolvemos hoje o que travou sua rotina.
           </p>
 
