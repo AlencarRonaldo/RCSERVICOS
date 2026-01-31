@@ -1,0 +1,528 @@
+import { useState, useEffect } from 'react'
+import {
+  Clock, Shield, BadgeCheck, CreditCard, Star, CheckCircle2,
+  Search, AlertCircle, ArrowRight, ChevronRight, Phone, MapPin,
+  MessageCircle
+} from 'lucide-react'
+import SEO from '../components/SEO'
+import { SERVICES, getWhatsAppLink, WHATSAPP_MESSAGES, CONFIG } from '../data/config'
+
+// Hero Section
+function Hero() {
+  const [cep, setCep] = useState('')
+  const [cepStatus, setCepStatus] = useState(null)
+
+  const handleCepCheck = (e) => {
+    e.preventDefault()
+    const cleanCep = cep.replace(/\D/g, '')
+    if (cleanCep.length === 8) {
+      if (cleanCep.startsWith('0') || cleanCep.startsWith('1')) {
+        setCepStatus('success')
+      } else {
+        setCepStatus('error')
+      }
+    }
+  }
+
+  return (
+    <section className="pt-28 pb-16 lg:pt-40 lg:pb-28 bg-gradient-to-b from-zinc-50 to-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-50" />
+      <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-500/5 rounded-full blur-3xl" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-red-50 text-red-700 px-4 py-2 rounded-full text-sm font-medium mb-8 border border-red-100 animate-pulse">
+            <AlertCircle className="w-4 h-4" />
+            Atendimento EMERGENCIAL em até 2 horas
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-zinc-900 leading-[1.1] tracking-tight mb-6">
+            Sua casa{' '}
+            <span className="bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+              parou?
+            </span>
+            {' '}A gente resolve{' '}
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              hoje.
+            </span>
+          </h1>
+
+          <p className="text-lg lg:text-xl text-zinc-500 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Enquanto outros técnicos só querem vender instalações novas,{' '}
+            <strong className="text-zinc-700">nós consertamos o que está quebrado AGORA.</strong>{' '}
+            Diagnóstico rápido e reparo na hora. Sem enrolação.
+          </p>
+
+          {/* CEP Search */}
+          <form onSubmit={handleCepCheck} className="max-w-md mx-auto mb-8">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Search className="w-5 h-5 text-zinc-400" />
+              </div>
+              <input
+                type="text"
+                value={cep}
+                onChange={(e) => {
+                  setCep(e.target.value)
+                  setCepStatus(null)
+                }}
+                placeholder="Digite seu CEP para verificar cobertura"
+                className="w-full pl-12 pr-32 py-4 bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm"
+                maxLength={9}
+              />
+              <button
+                type="submit"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all"
+              >
+                Verificar
+              </button>
+            </div>
+            {cepStatus === 'success' && (
+              <p className="mt-3 text-sm text-green-600 flex items-center justify-center gap-2">
+                <CheckCircle2 className="w-4 h-4" />
+                Ótimo! Atendemos sua região.
+              </p>
+            )}
+            {cepStatus === 'error' && (
+              <p className="mt-3 text-sm text-amber-600 flex items-center justify-center gap-2">
+                <AlertCircle className="w-4 h-4" />
+                Consulte disponibilidade via WhatsApp.
+              </p>
+            )}
+          </form>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href={getWhatsAppLink('URGENTE! Preciso de conserto hoje.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all hover:shadow-xl hover:shadow-green-500/25 hover:-translate-y-0.5"
+            >
+              <MessageCircle className="w-5 h-5" />
+              PRECISO DE CONSERTO AGORA
+            </a>
+            <a
+              href="#servicos"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 text-zinc-700 hover:text-zinc-900 font-medium px-6 py-4 rounded-xl border border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50 transition-all"
+            >
+              Qual problema você tem?
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-zinc-500">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-green-500" />
+              <span>+500 emergências resolvidas</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-amber-500 fill-amber-500" />
+              <span>4.9 no Google</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Shield className="w-5 h-5 text-blue-500" />
+              <span>Garantia em todos os serviços</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Services Section
+function Services() {
+  return (
+    <section id="servicos" className="py-20 lg:py-28 bg-zinc-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-14">
+          <span className="text-red-600 font-semibold text-sm uppercase tracking-wider">
+            Reparos Emergenciais
+          </span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-zinc-900 mt-3 mb-4 tracking-tight">
+            Qual é o seu problema hoje?
+          </h2>
+          <p className="text-zinc-500 max-w-2xl mx-auto text-lg">
+            Não vendemos instalação nova. <strong className="text-zinc-700">Consertamos o que parou.</strong>
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {SERVICES.map((service, index) => (
+            <div
+              key={index}
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-transparent hover:border-red-500"
+            >
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                  URGENTE
+                </div>
+              </div>
+              <div className="p-5 text-center">
+                <h3 className="text-xl font-bold text-zinc-900 mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-zinc-500 text-sm leading-relaxed mb-5">
+                  {service.description}
+                </p>
+                <a
+                  href={getWhatsAppLink(service.whatsappMessage)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 ${service.buttonColor} text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 w-full justify-center`}
+                >
+                  RESOLVER AGORA
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Trust Section
+function TrustSection() {
+  const brands = ['Intelbras', 'Samsung', 'Yale', 'Papaiz', 'Positivo', 'Garen']
+
+  return (
+    <section id="sobre" className="py-16 bg-white border-y border-zinc-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-center text-sm text-zinc-400 uppercase tracking-wider mb-8">
+          Consertamos equipamentos de todas as marcas
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+          {brands.map((brand, index) => (
+            <div
+              key={index}
+              className="text-2xl font-bold text-zinc-300 hover:text-zinc-400 transition-colors cursor-default"
+            >
+              {brand}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Differentials Section
+function Differentials() {
+  const differentials = [
+    { icon: Clock, title: 'Conserto Hoje', description: 'Chegamos em 2h e resolvemos no mesmo dia. Sem remarcar.' },
+    { icon: Shield, title: 'Diagnóstico Honesto', description: 'Falamos o que realmente precisa. Sem empurrar serviço.' },
+    { icon: BadgeCheck, title: 'Especialista em Reparos', description: 'Não queremos vender novo. Queremos consertar o seu.' },
+    { icon: CreditCard, title: 'Pague Depois', description: 'Pix, cartão em 12x ou boleto. Você escolhe.' }
+  ]
+
+  return (
+    <section className="py-20 lg:py-28 bg-zinc-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <span className="text-red-600 font-semibold text-sm uppercase tracking-wider">
+            Por que somos diferentes
+          </span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-zinc-900 mt-3 tracking-tight">
+            Fazemos o que outros técnicos ignoram
+          </h2>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {differentials.map((item, index) => (
+            <div key={index} className="text-center group">
+              <div className="w-16 h-16 bg-zinc-900 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-blue-600 transition-colors duration-300 shadow-lg">
+                <item.icon className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-zinc-900 mb-2">{item.title}</h3>
+              <p className="text-zinc-500 text-sm leading-relaxed">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Testimonials Section
+function Testimonials() {
+  const [active, setActive] = useState(0)
+  const testimonials = [
+    { name: 'Maria Silva', location: 'Santo Amaro, SP', text: 'A luz da minha casa inteira apagou às 22h. Chamei a RCSUPORTE e em 1 hora já tinham resolvido o curto-circuito. SALVARAM minha noite!', rating: 5 },
+    { name: 'Carlos Oliveira', location: 'Campo Belo, SP', text: 'Minha fechadura travou e eu não conseguia entrar em casa. O técnico chegou rápido, destravou e ainda consertou o defeito. Nem precisei trocar!', rating: 5 },
+    { name: 'Ana Santos', location: 'São Bernardo, SP', text: 'As câmeras da empresa pararam de gravar. Outros técnicos queriam vender um sistema novo. A RCSUPORTE consertou o DVR no mesmo dia. Muito honesto!', rating: 5 }
+  ]
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActive((prev) => (prev + 1) % testimonials.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [testimonials.length])
+
+  return (
+    <section className="py-20 lg:py-28 bg-zinc-900">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <span className="text-green-400 font-semibold text-sm uppercase tracking-wider">Emergências Resolvidas</span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mt-3 tracking-tight">Quem já chamou, aprovou</h2>
+        </div>
+
+        <div className="relative">
+          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 lg:p-12 border border-white/10">
+            <div className="flex gap-1 mb-6 justify-center">
+              {[...Array(testimonials[active].rating)].map((_, i) => (
+                <Star key={i} className="w-5 h-5 text-amber-400 fill-amber-400" />
+              ))}
+            </div>
+            <p className="text-xl lg:text-2xl text-white/90 text-center leading-relaxed mb-8">
+              "{testimonials[active].text}"
+            </p>
+            <div className="text-center">
+              <p className="font-semibold text-white">{testimonials[active].name}</p>
+              <p className="text-sm text-zinc-400">{testimonials[active].location}</p>
+            </div>
+          </div>
+
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActive(index)}
+                className={`w-2 h-2 rounded-full transition-all ${index === active ? 'bg-blue-500 w-6' : 'bg-white/30 hover:bg-white/50'}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// FAQ Section
+function FAQ() {
+  const [openIndex, setOpenIndex] = useState(null)
+  const faqs = [
+    { question: 'Qual o tempo médio de atendimento?', answer: 'Para emergências na Grande São Paulo, nosso tempo médio é de 2 horas. Para serviços agendados, combinamos o melhor horário para você.' },
+    { question: 'Vocês trabalham com quais formas de pagamento?', answer: 'Aceitamos Pix, cartão de crédito (em até 12x), cartão de débito e dinheiro. Emitimos nota fiscal em todos os serviços.' },
+    { question: 'Os serviços têm garantia?', answer: 'Sim! Todos os nossos serviços possuem garantia documentada. O prazo varia de acordo com o tipo de serviço, sendo no mínimo 90 dias.' },
+    { question: 'Atendem em feriados e finais de semana?', answer: 'Sim, funcionamos 24 horas, 7 dias por semana, incluindo feriados. Emergências não esperam!' }
+  ]
+
+  return (
+    <section id="faq" className="py-20 lg:py-28 bg-white">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">FAQ</span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-zinc-900 mt-3 tracking-tight">Perguntas Frequentes</h2>
+        </div>
+
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <div key={index} className="bg-zinc-50 rounded-xl border border-zinc-200 overflow-hidden">
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left"
+              >
+                <span className="font-semibold text-zinc-900">{faq.question}</span>
+                <ChevronRight className={`w-5 h-5 text-zinc-400 transition-transform ${openIndex === index ? 'rotate-90' : ''}`} />
+              </button>
+              {openIndex === index && (
+                <div className="px-6 pb-5">
+                  <p className="text-zinc-600 leading-relaxed">{faq.answer}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Contact Section
+function Contact() {
+  const [form, setForm] = useState({ nome: '', telefone: '', servico: '', mensagem: '' })
+  const [errors, setErrors] = useState({})
+  const [submitted, setSubmitted] = useState(false)
+
+  const validate = () => {
+    const newErrors = {}
+    if (!form.nome.trim()) newErrors.nome = 'Nome é obrigatório'
+    if (!form.telefone.trim()) newErrors.telefone = 'Telefone é obrigatório'
+    else if (form.telefone.replace(/\D/g, '').length < 10) newErrors.telefone = 'Telefone inválido'
+    if (!form.servico) newErrors.servico = 'Selecione um serviço'
+    return newErrors
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const newErrors = validate()
+    if (Object.keys(newErrors).length === 0) {
+      const message = `Olá! Meu nome é ${form.nome}.\n\nTelefone: ${form.telefone}\nServiço: ${form.servico}\n\n${form.mensagem || 'Gostaria de solicitar um orçamento.'}`
+      window.open(getWhatsAppLink(message), '_blank')
+      setSubmitted(true)
+    } else {
+      setErrors(newErrors)
+    }
+  }
+
+  return (
+    <section id="contato" className="py-20 lg:py-28 bg-zinc-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16">
+          <div>
+            <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Contato</span>
+            <h2 className="text-3xl lg:text-4xl font-bold text-zinc-900 mt-3 mb-6 tracking-tight">Fale conosco agora</h2>
+            <p className="text-zinc-500 text-lg mb-10 leading-relaxed">
+              Estamos prontos para atender você. Escolha o canal de sua preferência
+              ou preencha o formulário ao lado.
+            </p>
+
+            <div className="space-y-6">
+              <a
+                href={getWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-4 rounded-xl border border-zinc-200 hover:border-green-500 hover:bg-green-50 transition-all group"
+              >
+                <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                  <MessageCircle className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-zinc-900 group-hover:text-green-700">WhatsApp</h3>
+                  <p className="text-zinc-500 text-sm">{CONFIG.company.phone}</p>
+                </div>
+              </a>
+
+              <div className="flex items-center gap-4 p-4 rounded-xl border border-zinc-200">
+                <div className="w-12 h-12 bg-zinc-900 rounded-xl flex items-center justify-center">
+                  <Phone className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-zinc-900">Telefone</h3>
+                  <p className="text-zinc-500 text-sm">{CONFIG.company.phone}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-4 rounded-xl border border-zinc-200">
+                <div className="w-12 h-12 bg-zinc-900 rounded-xl flex items-center justify-center">
+                  <MapPin className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-zinc-900">Área de Cobertura</h3>
+                  <p className="text-zinc-500 text-sm">São Paulo e Região Metropolitana</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-8 border border-zinc-100 shadow-sm">
+            {submitted ? (
+              <div className="text-center py-12">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle2 className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-xl font-bold text-zinc-900 mb-2">Mensagem enviada!</h3>
+                <p className="text-zinc-500">Você foi redirecionado para o WhatsApp.</p>
+              </div>
+            ) : (
+              <>
+                <h3 className="text-xl font-bold text-zinc-900 mb-6">Solicite um orçamento</h3>
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-700 mb-2">Nome completo *</label>
+                    <input
+                      type="text"
+                      value={form.nome}
+                      onChange={(e) => setForm({ ...form, nome: e.target.value })}
+                      className={`w-full px-4 py-3 rounded-xl border ${errors.nome ? 'border-red-300 bg-red-50' : 'border-zinc-200'} focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all`}
+                      placeholder="Seu nome"
+                    />
+                    {errors.nome && <p className="mt-1 text-sm text-red-500">{errors.nome}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-700 mb-2">WhatsApp *</label>
+                    <input
+                      type="tel"
+                      value={form.telefone}
+                      onChange={(e) => setForm({ ...form, telefone: e.target.value })}
+                      className={`w-full px-4 py-3 rounded-xl border ${errors.telefone ? 'border-red-300 bg-red-50' : 'border-zinc-200'} focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all`}
+                      placeholder="(11) 99999-9999"
+                    />
+                    {errors.telefone && <p className="mt-1 text-sm text-red-500">{errors.telefone}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-700 mb-2">Serviço desejado *</label>
+                    <select
+                      value={form.servico}
+                      onChange={(e) => setForm({ ...form, servico: e.target.value })}
+                      className={`w-full px-4 py-3 rounded-xl border ${errors.servico ? 'border-red-300 bg-red-50' : 'border-zinc-200'} focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all`}
+                    >
+                      <option value="">Selecione um serviço</option>
+                      {SERVICES.map((s) => (
+                        <option key={s.id} value={s.title}>{s.title}</option>
+                      ))}
+                      <option value="Outro">Outro</option>
+                    </select>
+                    {errors.servico && <p className="mt-1 text-sm text-red-500">{errors.servico}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-700 mb-2">Mensagem (opcional)</label>
+                    <textarea
+                      rows={3}
+                      value={form.mensagem}
+                      onChange={(e) => setForm({ ...form, mensagem: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+                      placeholder="Descreva seu problema ou necessidade..."
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-blue-500/25"
+                  >
+                    Enviar via WhatsApp
+                  </button>
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Home Page
+export default function Home() {
+  return (
+    <>
+      <SEO
+        title="RCSUPORTE | Conserto Urgente - Elétrica, Fechadura, Câmeras | SP 24h"
+        description="Sua casa parou? A gente conserta HOJE. Eletricista 24h, fechadura travada, câmera offline, portão quebrado. Diagnóstico em 2h. Ligue: (11) 95653-4963"
+        keywords="eletricista urgente, conserto elétrico, fechadura travada, câmera não funciona, portão não abre, reparo emergencial"
+        canonical="/"
+      />
+      <Hero />
+      <Services />
+      <TrustSection />
+      <Differentials />
+      <Testimonials />
+      <FAQ />
+      <Contact />
+    </>
+  )
+}
