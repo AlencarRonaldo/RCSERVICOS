@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   Clock, Shield, BadgeCheck, CreditCard, Star, CheckCircle2,
   Search, AlertCircle, ArrowRight, ChevronRight, Phone, MapPin,
   MessageCircle
 } from 'lucide-react'
 import SEO from '../components/SEO'
-import { SERVICES, getWhatsAppLink, WHATSAPP_MESSAGES, CONFIG } from '../data/config'
+import { useModal } from '../context/ModalContext'
+import { SERVICES, getWhatsAppLink, CONFIG } from '../data/config'
 
 // Hero Section
 function Hero() {
   const [cep, setCep] = useState('')
   const [cepStatus, setCepStatus] = useState(null)
+  const { openTriageModal } = useModal()
 
   const handleCepCheck = (e) => {
     e.preventDefault()
@@ -94,15 +96,13 @@ function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href={getWhatsAppLink('URGENTE! Preciso de conserto hoje.')}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={openTriageModal}
               className="w-full sm:w-auto flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all hover:shadow-xl hover:shadow-green-500/25 hover:-translate-y-0.5"
             >
               <MessageCircle className="w-5 h-5" />
               PRECISO DE CONSERTO AGORA
-            </a>
+            </button>
             <a
               href="#servicos"
               className="w-full sm:w-auto flex items-center justify-center gap-2 text-zinc-700 hover:text-zinc-900 font-medium px-6 py-4 rounded-xl border border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50 transition-all"
@@ -135,6 +135,8 @@ function Hero() {
 
 // Services Section
 function Services() {
+  const { openTriageModal } = useModal()
+
   return (
     <section id="servicos" className="py-20 lg:py-28 bg-zinc-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -150,7 +152,7 @@ function Services() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
           {SERVICES.map((service, index) => (
             <div
               key={index}
@@ -173,15 +175,13 @@ function Services() {
                 <p className="text-zinc-500 text-sm leading-relaxed mb-5">
                   {service.description}
                 </p>
-                <a
-                  href={getWhatsAppLink(service.whatsappMessage)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 ${service.buttonColor} text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 w-full justify-center`}
+                <button
+                  onClick={openTriageModal}
+                  className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 w-full justify-center animate-pulse"
                 >
                   RESOLVER AGORA
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </button>
               </div>
             </div>
           ))}
@@ -377,6 +377,7 @@ function Contact() {
   const [form, setForm] = useState({ nome: '', telefone: '', servico: '', mensagem: '' })
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const { openTriageModal } = useModal()
 
   const validate = () => {
     const newErrors = {}
@@ -412,11 +413,9 @@ function Contact() {
             </p>
 
             <div className="space-y-6">
-              <a
-                href={getWhatsAppLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-xl border border-zinc-200 hover:border-green-500 hover:bg-green-50 transition-all group"
+              <button
+                onClick={openTriageModal}
+                className="w-full flex items-center gap-4 p-4 rounded-xl border border-zinc-200 hover:border-green-500 hover:bg-green-50 transition-all group text-left"
               >
                 <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
                   <MessageCircle className="w-6 h-6 text-white" />
@@ -425,7 +424,7 @@ function Contact() {
                   <h3 className="font-semibold text-zinc-900 group-hover:text-green-700">WhatsApp</h3>
                   <p className="text-zinc-500 text-sm">{CONFIG.company.phone}</p>
                 </div>
-              </a>
+              </button>
 
               <div className="flex items-center gap-4 p-4 rounded-xl border border-zinc-200">
                 <div className="w-12 h-12 bg-zinc-900 rounded-xl flex items-center justify-center">

@@ -3,12 +3,14 @@ import {
   Clock, CheckCircle2, ArrowRight, MessageCircle, Phone, Star, Shield, MapPin
 } from 'lucide-react'
 import SEO from '../components/SEO'
-import { SERVICES, getWhatsAppLink, CONFIG } from '../data/config'
+import { useModal } from '../context/ModalContext'
+import { SERVICES, CONFIG } from '../data/config'
 
 export default function ServicePage() {
   const location = useLocation()
   const slug = location.pathname.replace('/', '')
   const serviceData = SERVICES.find(s => s.slug === slug)
+  const { openTriageModal } = useModal()
 
   if (!serviceData) {
     return (
@@ -29,7 +31,7 @@ export default function ServicePage() {
         title={`${serviceData.shortTitle} em São Paulo - 24h | RCSUPORTE`}
         description={`${serviceData.fullDescription.slice(0, 130)}... Atendimento em 2h. Ligue: ${CONFIG.company.phone}`}
         keywords={`${serviceData.title.toLowerCase()}, ${serviceData.shortTitle.toLowerCase()} são paulo, ${serviceData.shortTitle.toLowerCase()} 24h`}
-        canonical={`/${service}`}
+        canonical={`/${slug}`}
       />
 
       {/* Hero */}
@@ -74,15 +76,13 @@ export default function ServicePage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href={getWhatsAppLink(serviceData.whatsappMessage)}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={openTriageModal}
                   className="flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:shadow-xl"
                 >
                   <MessageCircle className="w-5 h-5" />
                   Solicitar Orçamento
-                </a>
+                </button>
                 <a
                   href={`tel:${CONFIG.company.whatsapp}`}
                   className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all backdrop-blur-sm"
@@ -170,7 +170,7 @@ export default function ServicePage() {
             </h2>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {otherServices.map((s, index) => (
               <Link
                 key={index}
@@ -207,15 +207,13 @@ export default function ServicePage() {
             Entre em contato agora e receba atendimento em até 2 horas.
             Orçamento gratuito e sem compromisso!
           </p>
-          <a
-            href={getWhatsAppLink(serviceData.whatsappMessage)}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={openTriageModal}
             className="inline-flex items-center gap-3 bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:shadow-xl hover:bg-blue-50"
           >
             <MessageCircle className="w-5 h-5" />
             Solicitar Orçamento Grátis
-          </a>
+          </button>
         </div>
       </section>
     </>

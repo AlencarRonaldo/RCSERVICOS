@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { MessageCircle } from 'lucide-react'
-import { getWhatsAppLink } from '../data/config'
+import { useModal } from '../context/ModalContext'
 
 export default function FloatingWhatsApp() {
   const [isExpanded, setIsExpanded] = useState(false)
   const [showPulse, setShowPulse] = useState(true)
+  const { openTriageModal } = useModal()
 
   useEffect(() => {
     const expandTimer = setTimeout(() => setIsExpanded(true), 2000)
@@ -19,13 +20,11 @@ export default function FloatingWhatsApp() {
   }, [])
 
   return (
-    <a
-      href={getWhatsAppLink()}
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      onClick={openTriageModal}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
-      className="fixed bottom-6 right-6 z-50 flex items-center"
+      className="fixed bottom-6 right-6 z-50 flex items-center cursor-pointer"
     >
       {/* Pulse Animation */}
       {showPulse && (
@@ -43,6 +42,6 @@ export default function FloatingWhatsApp() {
           </span>
         )}
       </div>
-    </a>
+    </button>
   )
 }

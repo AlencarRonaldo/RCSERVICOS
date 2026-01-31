@@ -3,12 +3,14 @@ import {
   Clock, MapPin, CheckCircle2, ArrowRight, MessageCircle, Phone, Star, Shield
 } from 'lucide-react'
 import SEO from '../components/SEO'
-import { SERVICES, REGIONS, getWhatsAppLink, CONFIG } from '../data/config'
+import { useModal } from '../context/ModalContext'
+import { SERVICES, REGIONS, CONFIG } from '../data/config'
 
 export default function RegionPage() {
   const location = useLocation()
   const slug = location.pathname.replace('/', '')
   const regionData = REGIONS[slug]
+  const { openTriageModal } = useModal()
 
   if (!regionData) {
     return (
@@ -27,7 +29,7 @@ export default function RegionPage() {
         title={`Eletricista ${regionData.title} - Atendimento 24h | RCSUPORTE`}
         description={`Eletricista 24h na ${regionData.title}! Reparos elétricos, fechaduras digitais e câmeras de segurança em ${regionData.neighborhoods.slice(0, 3).join(', ')}. Atendimento em 2h. Ligue: ${CONFIG.company.phone}`}
         keywords={`eletricista ${regionData.name.toLowerCase()}, fechadura digital ${regionData.name.toLowerCase()}, câmeras ${regionData.name.toLowerCase()}`}
-        canonical={`/${region}`}
+        canonical={`/${slug}`}
         region={regionData.name}
       />
 
@@ -53,15 +55,13 @@ export default function RegionPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
-              <a
-                href={getWhatsAppLink(`Olá! Preciso de atendimento na ${regionData.title}.`)}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={openTriageModal}
                 className="flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:shadow-xl"
               >
                 <MessageCircle className="w-5 h-5" />
-                Chamar no WhatsApp
-              </a>
+                Solicitar Atendimento
+              </button>
               <a
                 href={`tel:${CONFIG.company.whatsapp}`}
                 className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all backdrop-blur-sm"
@@ -125,7 +125,7 @@ export default function RegionPage() {
             </h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {SERVICES.map((service, index) => (
               <div
                 key={index}
@@ -141,15 +141,13 @@ export default function RegionPage() {
                 <div className="p-5 text-center">
                   <h3 className="text-lg font-bold text-zinc-900 mb-3">{service.title}</h3>
                   <p className="text-zinc-500 text-sm leading-relaxed mb-5">{service.description}</p>
-                  <a
-                    href={getWhatsAppLink(`Olá! Preciso de ${service.title} na ${regionData.title}.`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 ${service.buttonColor} text-white font-semibold py-2.5 px-5 rounded-lg transition-all`}
+                  <button
+                    onClick={openTriageModal}
+                    className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-2.5 px-5 rounded-lg transition-all animate-pulse"
                   >
-                    Saiba Mais
+                    Solicitar
                     <ArrowRight className="w-4 h-4" />
-                  </a>
+                  </button>
                 </div>
               </div>
             ))}
@@ -167,15 +165,13 @@ export default function RegionPage() {
             Nossa equipe está pronta para atender você em toda a região.
             Chegamos em até 2 horas!
           </p>
-          <a
-            href={getWhatsAppLink(`Olá! Preciso de atendimento urgente na ${regionData.title}.`)}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={openTriageModal}
             className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:shadow-xl"
           >
             <MessageCircle className="w-5 h-5" />
-            Chamar no WhatsApp
-          </a>
+            Solicitar Atendimento
+          </button>
         </div>
       </section>
     </>

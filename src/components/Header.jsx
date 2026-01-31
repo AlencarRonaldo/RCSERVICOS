@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Zap, Menu, X, AlertCircle } from 'lucide-react'
-import { getWhatsAppLink, WHATSAPP_MESSAGES } from '../data/config'
+import { useModal } from '../context/ModalContext'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+  const { openTriageModal } = useModal()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -57,15 +58,13 @@ export default function Header() {
 
           {/* CTA Button */}
           <div className="flex items-center gap-3">
-            <a
-              href={getWhatsAppLink(WHATSAPP_MESSAGES.emergency)}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={openTriageModal}
               className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all hover:shadow-lg hover:shadow-red-500/25 hover:-translate-y-0.5"
             >
               <AlertCircle className="w-4 h-4" />
               Emergência
-            </a>
+            </button>
 
             {/* Mobile Menu Button */}
             <button
@@ -90,15 +89,16 @@ export default function Header() {
                   {link.label}
                 </a>
               ))}
-              <a
-                href={getWhatsAppLink(WHATSAPP_MESSAGES.emergency)}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false)
+                  openTriageModal()
+                }}
                 className="mx-4 mt-2 flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-red-600 text-white px-5 py-3 rounded-lg font-semibold"
               >
                 <AlertCircle className="w-4 h-4" />
                 Emergência 24h
-              </a>
+              </button>
             </nav>
           </div>
         )}

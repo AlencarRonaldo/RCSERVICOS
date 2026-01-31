@@ -101,5 +101,17 @@ export const SERVICES = [
     buttonColor: 'bg-emerald-500 hover:bg-emerald-600',
     image: '/portao-eletronico.png',
     whatsappMessage: 'URGENTE! Meu portão eletrônico travou e preciso de reparo.'
+  },
+  {
+    id: 'ti-escritorio',
+    slug: 'ti-escritorio-24h',
+    title: 'TI Parou?',
+    shortTitle: 'Suporte TI Emergencial',
+    description: 'Servidor caiu, rede fora do ar ou computadores travando? Suporte técnico emergencial para seu escritório não parar.',
+    fullDescription: 'Seu escritório parou por problema de TI? Servidor fora do ar, rede caiu, computadores travando, impressora não funciona ou backup corrompido? Oferecemos suporte técnico emergencial para empresas. Diagnóstico rápido e solução imediata para sua operação não parar.',
+    features: ['Suporte emergencial', 'Redes e servidores', 'Atendimento in-loco'],
+    buttonColor: 'bg-purple-500 hover:bg-purple-600',
+    image: '/ti-escritorio.jpg',
+    whatsappMessage: 'URGENTE! Meu escritório está com problema de TI e preciso de suporte emergencial.'
   }
 ]

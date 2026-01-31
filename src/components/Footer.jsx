@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
 import { Zap, Phone, MapPin, MessageCircle, Headphones } from 'lucide-react'
-import { CONFIG, getWhatsAppLink } from '../data/config'
+import { CONFIG } from '../data/config'
+import { useModal } from '../context/ModalContext'
 
 export default function Footer() {
+  const { openTriageModal } = useModal()
+
   return (
     <footer className="bg-zinc-900 text-white">
       {/* Main Footer */}
@@ -23,15 +26,13 @@ export default function Footer() {
               Especialistas em serviços elétricos, fechaduras digitais, câmeras de segurança
               e controle de acesso. Tecnologia e agilidade ao seu serviço.
             </p>
-            <a
-              href={getWhatsAppLink()}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={openTriageModal}
               className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-colors"
             >
               <MessageCircle className="w-4 h-4" />
               Fale Conosco
-            </a>
+            </button>
           </div>
 
           {/* Services */}
@@ -42,6 +43,7 @@ export default function Footer() {
               <li><Link to="/fechadura-digital" className="hover:text-white transition-colors">Fechaduras Digitais</Link></li>
               <li><Link to="/cameras-seguranca" className="hover:text-white transition-colors">Câmeras e Alarmes</Link></li>
               <li><Link to="/controle-acesso" className="hover:text-white transition-colors">Controle de Acesso</Link></li>
+              <li><Link to="/ti-escritorio-24h" className="hover:text-white transition-colors">TI Escritório 24h</Link></li>
             </ul>
 
             <h4 className="font-semibold mt-6 mb-4">Regiões</h4>
