@@ -63,7 +63,7 @@ export const SERVICES = [
     fullDescription: 'Ficou no escuro? Disjuntor caindo ou cheiro de queimado? Enquanto muitos só fazem fiação nova, nós somos especialistas em caça-curto e recuperação de sistemas antigos. Resolvemos panes críticas que outros técnicos não conseguem identificar.',
     features: ['Caça-curto especializado', 'Sistemas antigos', 'Panes complexas'],
     buttonColor: 'bg-blue-500 hover:bg-blue-600',
-    image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80',
+    image: '/pane-eletrica.png',
     whatsappMessage: 'URGENTE! Estou com pane elétrica e preciso de diagnóstico.'
   },
   {
