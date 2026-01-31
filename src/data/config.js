@@ -87,7 +87,7 @@ export const SERVICES = [
     fullDescription: 'Câmera sem imagem, DVR travado, HD corrompido ou perdeu o acesso remoto pelo celular? Antes de comprar um sistema novo, deixe a gente diagnosticar. Recuperamos gravações, substituímos HDs e reconfiguramos seu acesso de qualquer lugar.',
     features: ['Recuperação de DVR', 'Acesso remoto', 'Troca de HD'],
     buttonColor: 'bg-red-500 hover:bg-red-600',
-    image: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&q=80',
+    image: '/cftv-cameras.png',
     whatsappMessage: 'URGENTE! Meu sistema de câmeras está offline e preciso recuperar.'
   },
   {
