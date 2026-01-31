@@ -38,20 +38,20 @@ function Hero() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-zinc-900 leading-[1.1] tracking-tight mb-6">
-            Sua casa{' '}
+            Seu sistema{' '}
             <span className="bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
               parou?
             </span>
-            {' '}A gente resolve{' '}
+            {' '}Nós resolvemos o que{' '}
             <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              hoje.
+              outros não querem consertar.
             </span>
           </h1>
 
-          <p className="text-lg lg:text-xl text-zinc-500 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Enquanto outros técnicos só querem vender instalações novas,{' '}
-            <strong className="text-zinc-700">nós consertamos o que está quebrado AGORA.</strong>{' '}
-            Diagnóstico rápido e reparo na hora. Sem enrolação.
+          <p className="text-lg lg:text-xl text-zinc-500 mb-10 max-w-3xl mx-auto leading-relaxed">
+            Chega de esperar por técnicos que só querem obras grandes.{' '}
+            <strong className="text-zinc-700">Somos focados em reparos emergenciais e diagnósticos complexos em São Paulo.</strong>{' '}
+            Resolvemos hoje o que travou sua rotina.
           </p>
 
           {/* CEP Search */}
@@ -140,13 +140,13 @@ function Services() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <span className="text-red-600 font-semibold text-sm uppercase tracking-wider">
-            Reparos Emergenciais
+            Diagnóstico e Reparo Especializado
           </span>
           <h2 className="text-3xl lg:text-4xl font-bold text-zinc-900 mt-3 mb-4 tracking-tight">
-            Qual é o seu problema hoje?
+            Resolvemos o que outros técnicos não conseguem
           </h2>
           <p className="text-zinc-500 max-w-2xl mx-auto text-lg">
-            Não vendemos instalação nova. <strong className="text-zinc-700">Consertamos o que parou.</strong>
+            Especialistas em <strong className="text-zinc-700">diagnósticos complexos</strong> e reparos que exigem experiência real.
           </p>
         </div>
 
@@ -219,21 +219,21 @@ function TrustSection() {
 // Differentials Section
 function Differentials() {
   const differentials = [
-    { icon: Clock, title: 'Conserto Hoje', description: 'Chegamos em 2h e resolvemos no mesmo dia. Sem remarcar.' },
-    { icon: Shield, title: 'Diagnóstico Honesto', description: 'Falamos o que realmente precisa. Sem empurrar serviço.' },
-    { icon: BadgeCheck, title: 'Especialista em Reparos', description: 'Não queremos vender novo. Queremos consertar o seu.' },
-    { icon: CreditCard, title: 'Pague Depois', description: 'Pix, cartão em 12x ou boleto. Você escolhe.' }
+    { icon: Clock, title: 'Diagnóstico em 2h', description: 'Chegamos rápido e identificamos o problema real. Sem achismo.' },
+    { icon: Shield, title: 'Reparos Complexos', description: 'Resolvemos panes que outros técnicos desistiram de consertar.' },
+    { icon: BadgeCheck, title: 'Experiência Real', description: '+10 anos consertando o que parece impossível de resolver.' },
+    { icon: CreditCard, title: 'Preço Justo', description: 'Você paga pelo reparo, não por um projeto novo desnecessário.' }
   ]
 
   return (
     <section className="py-20 lg:py-28 bg-zinc-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="text-red-600 font-semibold text-sm uppercase tracking-wider">
-            Por que somos diferentes
+          <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">
+            Nossa Especialidade
           </span>
           <h2 className="text-3xl lg:text-4xl font-bold text-zinc-900 mt-3 tracking-tight">
-            Fazemos o que outros técnicos ignoram
+            Diagnósticos que outros não fazem
           </h2>
         </div>
 
@@ -257,9 +257,9 @@ function Differentials() {
 function Testimonials() {
   const [active, setActive] = useState(0)
   const testimonials = [
-    { name: 'Maria Silva', location: 'Santo Amaro, SP', text: 'A luz da minha casa inteira apagou às 22h. Chamei a RCSUPORTE e em 1 hora já tinham resolvido o curto-circuito. SALVARAM minha noite!', rating: 5 },
-    { name: 'Carlos Oliveira', location: 'Campo Belo, SP', text: 'Minha fechadura travou e eu não conseguia entrar em casa. O técnico chegou rápido, destravou e ainda consertou o defeito. Nem precisei trocar!', rating: 5 },
-    { name: 'Ana Santos', location: 'São Bernardo, SP', text: 'As câmeras da empresa pararam de gravar. Outros técnicos queriam vender um sistema novo. A RCSUPORTE consertou o DVR no mesmo dia. Muito honesto!', rating: 5 }
+    { name: 'Roberto Mendes', location: 'Santo Amaro, SP', text: 'Três eletricistas vieram e nenhum achou o curto-circuito. A RCSUPORTE encontrou em 40 minutos e resolveu na hora. Experiência faz diferença!', rating: 5 },
+    { name: 'Carla Ferreira', location: 'Campo Belo, SP', text: 'A assistência da marca queria cobrar R$800 pra trocar minha fechadura Samsung. A RCSUPORTE consertou por R$150. Funcionando perfeitamente há 6 meses.', rating: 5 },
+    { name: 'Paulo Ribeiro', location: 'São Bernardo, SP', text: 'Meu DVR Intelbras parou de gravar e perdi acesso remoto. Outros queriam vender sistema novo de R$3mil. Consertaram o meu por uma fração do preço.', rating: 5 }
   ]
 
   useEffect(() => {
