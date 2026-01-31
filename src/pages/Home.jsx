@@ -264,55 +264,39 @@ function Differentials() {
   )
 }
 
-// Testimonials Section
+// Testimonials Section - Cards lado a lado
 function Testimonials() {
-  const [active, setActive] = useState(0)
   const testimonials = [
-    { name: 'Roberto Mendes', location: 'Santo Amaro, SP', text: 'Três eletricistas vieram e nenhum achou o curto-circuito. A RCSUPORTE encontrou em 40 minutos e resolveu na hora. Experiência faz diferença!', rating: 5 },
-    { name: 'Carla Ferreira', location: 'Campo Belo, SP', text: 'A assistência da marca queria cobrar R$800 pra trocar minha fechadura Samsung. A RCSUPORTE consertou por R$150. Funcionando perfeitamente há 6 meses.', rating: 5 },
-    { name: 'Paulo Ribeiro', location: 'São Bernardo, SP', text: 'Meu DVR Intelbras parou de gravar e perdi acesso remoto. Outros queriam vender sistema novo de R$3mil. Consertaram o meu por uma fração do preço.', rating: 5 }
+    { name: 'Roberto Mendes', location: 'Santo Amaro, SP', text: 'Três eletricistas não acharam o curto. A RCSUPORTE encontrou em 40 min e resolveu na hora!', rating: 5 },
+    { name: 'Carla Ferreira', location: 'Campo Belo, SP', text: 'Assistência queria R$800 pra trocar a fechadura. RCSUPORTE consertou por R$150. Funciona até hoje!', rating: 5 },
+    { name: 'Paulo Ribeiro', location: 'São Bernardo, SP', text: 'DVR parou de gravar. Queriam vender sistema de R$3mil. Consertaram o meu por uma fração do preço.', rating: 5 }
   ]
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActive((prev) => (prev + 1) % testimonials.length)
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [testimonials.length])
-
   return (
-    <section className="py-20 lg:py-28 bg-zinc-900">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+    <section className="py-16 bg-zinc-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
           <span className="text-green-400 font-semibold text-sm uppercase tracking-wider">Emergências Resolvidas</span>
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mt-3 tracking-tight">Quem já chamou, aprovou</h2>
+          <h2 className="text-2xl lg:text-3xl font-bold text-white mt-2">Quem já chamou, aprovou</h2>
         </div>
 
-        <div className="relative">
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 lg:p-12 border border-white/10">
-            <div className="flex gap-1 mb-6 justify-center">
-              {[...Array(testimonials[active].rating)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 text-amber-400 fill-amber-400" />
-              ))}
+        <div className="grid md:grid-cols-3 gap-4">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+              <div className="flex gap-0.5 mb-3">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-white/90 text-sm leading-relaxed mb-4">
+                "{testimonial.text}"
+              </p>
+              <div>
+                <p className="font-semibold text-white text-sm">{testimonial.name}</p>
+                <p className="text-xs text-zinc-400">{testimonial.location}</p>
+              </div>
             </div>
-            <p className="text-xl lg:text-2xl text-white/90 text-center leading-relaxed mb-8">
-              "{testimonials[active].text}"
-            </p>
-            <div className="text-center">
-              <p className="font-semibold text-white">{testimonials[active].name}</p>
-              <p className="text-sm text-zinc-400">{testimonials[active].location}</p>
-            </div>
-          </div>
-
-          <div className="flex justify-center gap-2 mt-8">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActive(index)}
-                className={`w-2 h-2 rounded-full transition-all ${index === active ? 'bg-blue-500 w-6' : 'bg-white/30 hover:bg-white/50'}`}
-              />
-            ))}
-          </div>
+          ))}
         </div>
       </div>
     </section>
