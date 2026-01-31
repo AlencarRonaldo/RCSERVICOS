@@ -191,23 +191,34 @@ function Services() {
   )
 }
 
-// Trust Section
+// Trust Section - Logos das Marcas
 function TrustSection() {
-  const brands = ['Intelbras', 'Samsung', 'Yale', 'Papaiz', 'Positivo', 'Garen']
+  const brands = [
+    { name: 'Intelbras', logo: '/logos/intelbras.svg' },
+    { name: 'Samsung', logo: '/logos/samsung.svg' },
+    { name: 'Yale', logo: '/logos/yale.svg' },
+    { name: 'Papaiz', logo: '/logos/papaiz.svg' },
+    { name: 'Positivo', logo: '/logos/positivo.svg' },
+    { name: 'Garen', logo: '/logos/garen.svg' }
+  ]
 
   return (
     <section id="sobre" className="py-16 bg-white border-y border-zinc-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-center text-sm text-zinc-400 uppercase tracking-wider mb-8">
+        <p className="text-center text-sm text-zinc-400 uppercase tracking-wider mb-10">
           Consertamos equipamentos de todas as marcas
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
           {brands.map((brand, index) => (
             <div
               key={index}
-              className="text-2xl font-bold text-zinc-300 hover:text-zinc-400 transition-colors cursor-default"
+              className="h-10 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity"
             >
-              {brand}
+              <img
+                src={brand.logo}
+                alt={brand.name}
+                className="h-full w-auto object-contain"
+              />
             </div>
           ))}
         </div>
