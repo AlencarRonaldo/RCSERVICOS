@@ -75,7 +75,7 @@ export const SERVICES = [
     fullDescription: 'Sua fechadura digital travou, parou de ler a biometria ou está apitando erro? Não troque sua fechadura antes de falar conosco. Consertamos e reconfiguramos marcas como Intelbras, Samsung e Yale. Atendimento emergencial para você não ficar trancado.',
     features: ['Todas as marcas', 'Reconfiguração', 'Destravamento urgente'],
     buttonColor: 'bg-orange-500 hover:bg-orange-600',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    image: '/fechadura-digital.png',
     whatsappMessage: 'URGENTE! Minha fechadura digital está com erro e preciso de conserto.'
   },
   {
