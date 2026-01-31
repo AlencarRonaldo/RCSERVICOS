@@ -99,7 +99,7 @@ export const SERVICES = [
     fullDescription: 'Portão não abre, motor fazendo barulho estranho, placa queimada ou controles dessincronizados? Fazemos o diagnóstico na hora e consertamos o problema. Seu portão funcionando antes de você precisar sair de novo.',
     features: ['Diagnóstico na hora', 'Reparo de motor', 'Sincronização'],
     buttonColor: 'bg-emerald-500 hover:bg-emerald-600',
-    image: 'https://images.unsplash.com/photo-1558403194-611308249627?w=600&q=80',
+    image: '/portao-eletronico.png',
     whatsappMessage: 'URGENTE! Meu portão eletrônico travou e preciso de reparo.'
   }
 ]
