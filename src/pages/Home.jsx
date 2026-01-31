@@ -307,18 +307,46 @@ function Testimonials() {
 function FAQ() {
   const [openIndex, setOpenIndex] = useState(null)
   const faqs = [
-    { question: 'Qual o tempo médio de atendimento?', answer: 'Para emergências na Grande São Paulo, nosso tempo médio é de 2 horas. Para serviços agendados, combinamos o melhor horário para você.' },
-    { question: 'Vocês trabalham com quais formas de pagamento?', answer: 'Aceitamos Pix, cartão de crédito (em até 12x), cartão de débito e dinheiro. Emitimos nota fiscal em todos os serviços.' },
-    { question: 'Os serviços têm garantia?', answer: 'Sim! Todos os nossos serviços possuem garantia documentada. O prazo varia de acordo com o tipo de serviço, sendo no mínimo 90 dias.' },
-    { question: 'Atendem em feriados e finais de semana?', answer: 'Sim, funcionamos 24 horas, 7 dias por semana, incluindo feriados. Emergências não esperam!' }
+    {
+      question: 'Qual o tempo médio de atendimento emergencial?',
+      answer: 'Para emergências na Grande São Paulo, nosso tempo médio de chegada é de 2 horas. O técnico registra horário de chegada e saída, e você paga apenas pelo tempo real de serviço. Para casos agendados, combinamos o melhor horário.'
+    },
+    {
+      question: 'O diagnóstico é cobrado separadamente?',
+      answer: 'O diagnóstico faz parte do atendimento. Se você aprovar o reparo, o valor do diagnóstico é incorporado ao serviço. Só cobramos visita separada se você optar por não realizar o conserto após a avaliação.'
+    },
+    {
+      question: 'Vocês consertam ou só querem vender equipamento novo?',
+      answer: 'Nossa especialidade é CONSERTAR. Só indicamos troca quando o reparo não é viável tecnicamente ou quando o custo do conserto supera 70% do valor de um equipamento novo. Sempre apresentamos as opções com transparência.'
+    },
+    {
+      question: 'O técnico leva peças e materiais?',
+      answer: 'Sim! Nossos técnicos vão preparados com as peças mais comuns: disjuntores, fios, conectores, baterias para fechaduras, fontes, HDs para DVR e controles de portão. Para peças específicas, fazemos orçamento e retornamos no mesmo dia quando possível.'
+    },
+    {
+      question: 'Quais formas de pagamento vocês aceitam?',
+      answer: 'Pix (transferência na hora), cartão de crédito em até 12x, cartão de débito e dinheiro. Emitimos nota fiscal em todos os serviços. Para empresas, também trabalhamos com boleto mediante cadastro.'
+    },
+    {
+      question: 'Os serviços têm garantia?',
+      answer: 'Todos os serviços têm garantia documentada: 90 dias para reparos em geral, 6 meses para troca de peças e 1 ano para instalações novas. A garantia cobre defeitos no serviço executado, não mau uso ou desgaste natural.'
+    },
+    {
+      question: 'Vocês trabalham com quais marcas?',
+      answer: 'Trabalhamos com TODAS as marcas do mercado: Intelbras, Samsung, Yale, Papaiz, Positivo, Garen, Hikvision, Motorola, Amelco, PPA, entre outras. Nossa equipe é treinada para diagnosticar e reparar equipamentos de qualquer fabricante.'
+    },
+    {
+      question: 'Atendem fora do horário comercial, feriados e fins de semana?',
+      answer: 'Sim! Funcionamos 24 horas, 7 dias por semana, incluindo feriados. Emergência elétrica às 3h da manhã? Fechadura travou no domingo? Estamos disponíveis. O valor do atendimento noturno/feriado tem acréscimo de 30%.'
+    }
   ]
 
   return (
-    <section id="faq" className="py-20 lg:py-28 bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">FAQ</span>
-          <h2 className="text-3xl lg:text-4xl font-bold text-zinc-900 mt-3 tracking-tight">Perguntas Frequentes</h2>
+    <section id="faq" className="py-16 lg:py-20 bg-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <span className="text-blue-600 font-semibold text-sm uppercase tracking-wider">Dúvidas</span>
+          <h2 className="text-2xl lg:text-3xl font-bold text-zinc-900 mt-2">Perguntas Frequentes</h2>
         </div>
 
         <div className="space-y-4">
