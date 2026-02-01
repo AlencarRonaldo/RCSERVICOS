@@ -26,9 +26,9 @@ export default function RegionPage() {
   return (
     <>
       <SEO
-        title={`Eletricista ${regionData.title} - Atendimento 24h | RCSUPORTE`}
-        description={`Eletricista 24h na ${regionData.title}! Reparos elétricos, fechaduras digitais e câmeras de segurança em ${regionData.neighborhoods.slice(0, 3).join(', ')}. Atendimento em 2h. Ligue: ${CONFIG.company.phone}`}
-        keywords={`eletricista ${regionData.name.toLowerCase()}, fechadura digital ${regionData.name.toLowerCase()}, câmeras ${regionData.name.toLowerCase()}`}
+        title={`Eletricista e Segurança ${regionData.title} 24h | RCSUPORTE`}
+        description={`Atendimento seguro para casas e apartamentos na ${regionData.title}. Técnicos identificados. Eletricista, câmeras, fechaduras em ${regionData.neighborhoods.slice(0, 3).join(', ')}. ${CONFIG.company.phone}`}
+        keywords={`eletricista ${regionData.name.toLowerCase()}, eletricista residencial ${regionData.name.toLowerCase()}, eletricista apartamento ${regionData.name.toLowerCase()}, câmeras segurança casa ${regionData.name.toLowerCase()}, fechadura digital ${regionData.name.toLowerCase()}, técnico de confiança ${regionData.name.toLowerCase()}`}
         canonical={`/${slug}`}
         region={regionData.name}
       />
@@ -45,13 +45,13 @@ export default function RegionPage() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              Eletricista 24h na{' '}
+              Eletricista e Segurança na{' '}
               <span className="text-blue-200">{regionData.title}</span>
             </h1>
 
             <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-              Atendimento emergencial em até 2 horas. Reparos elétricos, fechaduras digitais,
-              câmeras de segurança e controle de acesso em toda a região.
+              Atendimento seguro para casas, apartamentos e condomínios. Técnicos identificados,
+              explicamos antes de fazer. Atendimento em até 2 horas.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
@@ -95,8 +95,9 @@ export default function RegionPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-2xl lg:text-3xl font-bold text-zinc-900">
-              Bairros atendidos na {regionData.title}
+              Bairros Atendidos na {regionData.title}
             </h2>
+            <p className="text-zinc-500 mt-3">Atendemos casas, apartamentos, empresas e condomínios em toda a região</p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-3">
@@ -121,7 +122,7 @@ export default function RegionPage() {
               Serviços na {regionData.title}
             </span>
             <h2 className="text-3xl lg:text-4xl font-bold text-zinc-900 mt-3 mb-4">
-              O que podemos fazer por você
+              Atendimento Seguro para Sua Casa ou Empresa
             </h2>
           </div>
 
@@ -159,18 +160,18 @@ export default function RegionPage() {
       <section className="py-20 bg-zinc-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-            Precisa de atendimento na {regionData.title}?
+            Precisa de Atendimento na {regionData.title}?
           </h2>
           <p className="text-zinc-400 text-lg mb-8">
-            Nossa equipe está pronta para atender você em toda a região.
-            Chegamos em até 2 horas!
+            Fale com a gente sem compromisso. Técnicos identificados,
+            explicamos tudo antes de fazer qualquer serviço.
           </p>
           <button
             onClick={openTriageModal}
             className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:shadow-xl"
           >
             <MessageCircle className="w-5 h-5" />
-            Solicitar Atendimento
+            Falar com um Técnico de Confiança
           </button>
         </div>
       </section>

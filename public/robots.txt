@@ -1,0 +1,11 @@
+# Robots.txt para RCSUPORTE
+# https://suportehoje.com.br
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://suportehoje.com.br/sitemap.xml
+
+# Bloquear pastas desnecessárias
+Disallow: /assets/

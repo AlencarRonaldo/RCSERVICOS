@@ -28,9 +28,9 @@ export default function ServicePage() {
   return (
     <>
       <SEO
-        title={`${serviceData.shortTitle} em São Paulo - 24h | RCSUPORTE`}
-        description={`${serviceData.fullDescription.slice(0, 130)}... Atendimento em 2h. Ligue: ${CONFIG.company.phone}`}
-        keywords={`${serviceData.title.toLowerCase()}, ${serviceData.shortTitle.toLowerCase()} são paulo, ${serviceData.shortTitle.toLowerCase()} 24h`}
+        title={`${serviceData.shortTitle} SP 24h | RCSUPORTE`}
+        description={`${serviceData.fullDescription.slice(0, 120)} Técnicos identificados, atendimento seguro. ${CONFIG.company.phone}`}
+        keywords={`${serviceData.title.toLowerCase()} são paulo, ${serviceData.title.toLowerCase()} residencial, ${serviceData.title.toLowerCase()} apartamento, ${serviceData.title.toLowerCase()} casa, técnico de confiança, atendimento seguro`}
         canonical={`/${slug}`}
       />
 
@@ -109,16 +109,16 @@ export default function ServicePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl lg:text-4xl font-bold text-zinc-900">
-              Por que escolher a RCSUPORTE?
+              Por Que Você Pode Confiar na Gente
             </h2>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { icon: Clock, title: 'Atendimento 24h', desc: 'Disponíveis a qualquer hora, todos os dias.' },
-              { icon: Shield, title: 'Garantia', desc: 'Todos os serviços com garantia documentada.' },
-              { icon: Star, title: 'Qualidade', desc: 'Técnicos certificados e materiais de primeira.' },
-              { icon: MapPin, title: 'Cobertura', desc: 'Atendemos toda São Paulo e região.' }
+              { icon: Shield, title: 'Técnicos Identificados', desc: 'Uniformizados e com crachá. Você sabe quem está entrando na sua casa.' },
+              { icon: CheckCircle2, title: 'Explicamos Antes', desc: 'Falamos o que será feito e o valor antes de executar. Sem surpresas.' },
+              { icon: Clock, title: 'Atendimento 24h', desc: 'Disponíveis a qualquer hora. Emergências não escolhem horário.' },
+              { icon: Star, title: 'Atendimento Respeitoso', desc: 'Cuidamos do seu espaço como se fosse nosso. Limpamos tudo depois.' }
             ].map((item, index) => (
               <div key={index} className="text-center">
                 <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
@@ -137,15 +137,15 @@ export default function ServicePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-2xl lg:text-3xl font-bold text-zinc-900">
-              Regiões atendidas
+              Regiões Atendidas em São Paulo
             </h2>
             <p className="text-zinc-500 mt-2">
-              Oferecemos {serviceData.title.toLowerCase()} em toda a Grande São Paulo
+              Atendemos casas, apartamentos, empresas e condomínios em toda a Grande São Paulo
             </p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-3">
-            {['Zona Sul', 'Zona Norte', 'Zona Leste', 'Zona Oeste', 'Centro', 'ABC Paulista', 'Guarulhos', 'Osasco'].map((area, index) => (
+            {['Zona Sul', 'Zona Norte', 'Zona Leste', 'Zona Oeste', 'Centro', 'ABC Paulista', 'Guarulhos', 'Osasco', 'Alphaville', 'Taboão da Serra'].map((area, index) => (
               <span
                 key={index}
                 className="inline-flex items-center gap-2 bg-white text-zinc-700 px-4 py-2 rounded-full text-sm font-medium border border-zinc-200"
@@ -201,18 +201,18 @@ export default function ServicePage() {
       <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-            Precisa de {serviceData.title.toLowerCase()}?
+            Precisa de Ajuda com {serviceData.title}?
           </h2>
           <p className="text-blue-100 text-lg mb-8">
-            Entre em contato agora e receba atendimento em até 2 horas.
-            Orçamento gratuito e sem compromisso!
+            Fale com a gente sem compromisso. Técnicos identificados,
+            explicamos tudo antes de fazer.
           </p>
           <button
             onClick={openTriageModal}
             className="inline-flex items-center gap-3 bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:shadow-xl hover:bg-blue-50"
           >
             <MessageCircle className="w-5 h-5" />
-            Solicitar Orçamento Grátis
+            Falar com um Técnico de Confiança
           </button>
         </div>
       </section>

@@ -7,7 +7,7 @@ export const CONFIG = {
     phone: '(11) 95653-4963',
     whatsapp: '5511956534963',
     email: 'contato@rcsuporte.com.br',
-    website: 'https://rcsuporte.com.br'
+    website: 'https://suportehoje.com.br'
   },
   social: {
     instagram: 'https://instagram.com/rcsuporte',
@@ -17,12 +17,12 @@ export const CONFIG = {
 
 // Mensagens padrão do WhatsApp
 export const WHATSAPP_MESSAGES = {
-  default: 'Olá! Gostaria de solicitar um orçamento.',
-  emergency: 'EMERGÊNCIA! Preciso de atendimento urgente.',
-  eletrica: 'Olá! Preciso de um eletricista.',
-  fechadura: 'Olá! Gostaria de instalar uma fechadura digital.',
-  camera: 'Olá! Quero instalar câmeras de segurança.',
-  controle: 'Olá! Preciso de serviço de controle de acesso.'
+  default: 'Olá! Gostaria de saber mais sobre os serviços.',
+  emergency: 'Olá! Preciso de atendimento urgente.',
+  eletrica: 'Olá! Preciso de eletricista para minha casa/apartamento.',
+  fechadura: 'Olá! Tenho interesse em fechadura digital.',
+  camera: 'Olá! Quero saber sobre câmeras de segurança.',
+  controle: 'Olá! Preciso de ajuda com portão/interfone.'
 }
 
 // Função para gerar link do WhatsApp
@@ -36,82 +36,82 @@ export const REGIONS = {
     name: 'São Paulo',
     slug: 'sao-paulo',
     title: 'São Paulo',
-    neighborhoods: ['Centro', 'Zona Sul', 'Zona Norte', 'Zona Leste', 'Zona Oeste']
+    neighborhoods: ['Centro', 'Zona Sul', 'Zona Norte', 'Zona Leste', 'Zona Oeste', 'Pinheiros', 'Perdizes', 'Lapa']
   },
   'zona-sul': {
     name: 'Zona Sul',
     slug: 'zona-sul',
     title: 'Zona Sul de São Paulo',
-    neighborhoods: ['Santo Amaro', 'Campo Belo', 'Brooklin', 'Moema', 'Itaim Bibi', 'Vila Mariana']
+    neighborhoods: ['Santo Amaro', 'Campo Belo', 'Brooklin', 'Moema', 'Itaim Bibi', 'Vila Mariana', 'Jardins', 'Vila Olímpia', 'Morumbi', 'Campo Grande']
   },
   'abc': {
     name: 'ABC Paulista',
     slug: 'abc',
     title: 'ABC Paulista',
-    neighborhoods: ['São Bernardo do Campo', 'Santo André', 'São Caetano do Sul', 'Diadema', 'Mauá']
+    neighborhoods: ['São Bernardo do Campo', 'Santo André', 'São Caetano do Sul', 'Diadema', 'Mauá', 'Ribeirão Pires', 'Rio Grande da Serra']
   }
 }
 
-// Dados dos serviços - FOCO EM DIAGNÓSTICO E REPAROS COMPLEXOS
+// Dados dos serviços - RESIDÊNCIAS, EMPRESAS E CONDOMÍNIOS
 export const SERVICES = [
   {
     id: 'eletrica',
     slug: 'eletricista-24h',
-    title: 'Pane Elétrica?',
-    shortTitle: 'Diagnóstico Elétrico',
-    description: 'Ficou no escuro? Disjuntor caindo ou cheiro de queimado? Somos especialistas em caça-curto e recuperação de sistemas.',
-    fullDescription: 'Ficou no escuro? Disjuntor caindo ou cheiro de queimado? Enquanto muitos só fazem fiação nova, nós somos especialistas em caça-curto e recuperação de sistemas antigos. Resolvemos panes críticas que outros técnicos não conseguem identificar.',
-    features: ['Caça-curto especializado', 'Sistemas antigos', 'Panes complexas'],
+    title: 'Eletricista 24h',
+    shortTitle: 'Eletricista Residencial e Comercial',
+    description: 'Atendimento seguro para casas, apartamentos e empresas. Técnicos identificados que explicam o serviço antes de fazer.',
+    fullDescription: 'Eletricista 24 horas para casas, apartamentos, empresas e condomínios em São Paulo. Técnicos uniformizados e identificados. Explicamos o problema e o valor antes de executar. Atendimento respeitoso, ideal para quem mora sozinho(a) e preza por segurança e transparência.',
+    features: ['Técnicos identificados', 'Orçamento antes', 'Atendimento seguro'],
     buttonColor: 'bg-blue-500 hover:bg-blue-600',
     image: '/pane-eletrica.png',
-    whatsappMessage: 'URGENTE! Estou com pane elétrica e preciso de diagnóstico.'
+    whatsappMessage: 'Olá! Preciso de eletricista para minha casa/apartamento.'
   },
   {
     id: 'fechadura',
     slug: 'fechadura-digital',
-    title: 'Fechadura com Erro?',
-    shortTitle: 'Recuperação de Fechadura',
-    description: 'Travou, parou de ler biometria ou está apitando erro? Não troque antes de falar conosco. Consertamos Intelbras, Samsung e Yale.',
-    fullDescription: 'Sua fechadura digital travou, parou de ler a biometria ou está apitando erro? Não troque sua fechadura antes de falar conosco. Consertamos e reconfiguramos marcas como Intelbras, Samsung e Yale. Atendimento emergencial para você não ficar trancado.',
-    features: ['Todas as marcas', 'Reconfiguração', 'Destravamento urgente'],
+    title: 'Fechadura Digital',
+    shortTitle: 'Fechaduras para Casas e Apartamentos',
+    description: 'Mais segurança para sua casa. Instalação de fechaduras digitais com senha, biometria ou app. Ideal para quem mora sozinho(a).',
+    fullDescription: 'Fechaduras digitais para casas e apartamentos. Aumente sua segurança com fechaduras de senha, biometria ou controle por app. Instalação cuidadosa, explicamos como usar. Trabalhamos com Intelbras, Samsung, Yale. Ideal para mulheres que moram sozinhas e buscam mais tranquilidade.',
+    features: ['Mais segurança', 'Fácil de usar', 'Todas as marcas'],
     buttonColor: 'bg-orange-500 hover:bg-orange-600',
     image: '/fechadura-digital.png',
-    whatsappMessage: 'URGENTE! Minha fechadura digital está com erro e preciso de conserto.'
+    whatsappMessage: 'Olá! Quero instalar fechadura digital na minha casa/apartamento.'
   },
   {
     id: 'camera',
     slug: 'cameras-seguranca',
-    title: 'CFTV Offline?',
-    shortTitle: 'Recuperação de CFTV',
-    description: 'Câmera sem imagem, DVR travado ou perdeu acesso remoto? Recuperamos seu sistema sem vender equipamento novo.',
-    fullDescription: 'Câmera sem imagem, DVR travado, HD corrompido ou perdeu o acesso remoto pelo celular? Antes de comprar um sistema novo, deixe a gente diagnosticar. Recuperamos gravações, substituímos HDs e reconfiguramos seu acesso de qualquer lugar.',
-    features: ['Recuperação de DVR', 'Acesso remoto', 'Troca de HD'],
+    title: 'Câmeras de Segurança',
+    shortTitle: 'Câmeras para Casas e Apartamentos',
+    description: 'Veja sua casa de qualquer lugar pelo celular. Instalação discreta e ensinamos a usar o aplicativo.',
+    fullDescription: 'Câmeras de segurança para casas e apartamentos. Monitore sua casa pelo celular de qualquer lugar. Instalação limpa e discreta, ensinamos a usar o aplicativo. Gravação local ou na nuvem. Ideal para quem viaja, mora sozinho(a) ou quer mais tranquilidade no dia a dia.',
+    features: ['Acesso pelo celular', 'Instalação discreta', 'Ensinamos a usar'],
     buttonColor: 'bg-red-500 hover:bg-red-600',
     image: '/cftv-cameras.png',
-    whatsappMessage: 'URGENTE! Meu sistema de câmeras está offline e preciso recuperar.'
+    whatsappMessage: 'Olá! Quero instalar câmeras de segurança na minha casa.'
   },
   {
     id: 'controle',
     slug: 'controle-acesso',
-    title: 'Portão Travado?',
-    shortTitle: 'Reparo de Portão',
-    description: 'Motor queimou, placa com defeito ou controle dessincronizado? Consertamos antes de você precisar sair de novo.',
-    fullDescription: 'Portão não abre, motor fazendo barulho estranho, placa queimada ou controles dessincronizados? Fazemos o diagnóstico na hora e consertamos o problema. Seu portão funcionando antes de você precisar sair de novo.',
-    features: ['Diagnóstico na hora', 'Reparo de motor', 'Sincronização'],
+    title: 'Portões e Interfones',
+    shortTitle: 'Portões para Casas e Condomínios',
+    description: 'Conserto de portões eletrônicos e interfones. Atendimento rápido para você não ficar na mão.',
+    fullDescription: 'Manutenção de portões eletrônicos e interfones para casas, apartamentos e condomínios. Portão travou? Interfone não funciona? Atendimento rápido com técnico identificado. Conserto de motor, placa, controle remoto. Você não precisa ficar preocupado(a) com a entrada da sua casa.',
+    features: ['Conserto rápido', 'Técnico identificado', 'Portões e interfones'],
     buttonColor: 'bg-emerald-500 hover:bg-emerald-600',
     image: '/portao-eletronico.png',
-    whatsappMessage: 'URGENTE! Meu portão eletrônico travou e preciso de reparo.'
+    whatsappMessage: 'Olá! Preciso de conserto de portão/interfone.'
   },
   {
     id: 'ti-escritorio',
     slug: 'ti-escritorio-24h',
-    title: 'TI Parou?',
-    shortTitle: 'Suporte TI Emergencial',
-    description: 'Servidor caiu, rede fora do ar ou computadores travando? Suporte técnico emergencial para seu escritório não parar.',
-    fullDescription: 'Seu escritório parou por problema de TI? Servidor fora do ar, rede caiu, computadores travando, impressora não funciona ou backup corrompido? Oferecemos suporte técnico emergencial para empresas. Diagnóstico rápido e solução imediata para sua operação não parar.',
-    features: ['Suporte emergencial', 'Redes e servidores', 'Atendimento in-loco'],
+    title: 'Suporte Técnico',
+    shortTitle: 'Suporte para Casa e Escritório',
+    description: 'Ajuda com computador, internet, impressora e rede. Atendimento paciente, explicamos de forma simples.',
+    fullDescription: 'Suporte técnico para sua casa ou escritório. Computador lento, internet caindo, impressora com problema? Atendimento paciente e didático - explicamos de forma simples o que está acontecendo. Também atendemos pequenas empresas e home office.',
+    features: ['Explicação simples', 'Casa ou escritório', 'Atendimento paciente'],
     buttonColor: 'bg-purple-500 hover:bg-purple-600',
     image: '/ti-escritorio.jpg',
-    whatsappMessage: 'URGENTE! Meu escritório está com problema de TI e preciso de suporte emergencial.'
+    whatsappMessage: 'Olá! Preciso de ajuda com computador/internet.'
   }
 ]

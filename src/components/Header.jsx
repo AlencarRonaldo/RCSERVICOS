@@ -11,13 +11,25 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   useEffect(() => {
     setIsMenuOpen(false)
   }, [location])
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isMenuOpen])
 
   const navLinks = [
     { href: '/#servicos', label: 'Serviços' },
@@ -28,19 +40,17 @@ export default function Header() {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white/80 backdrop-blur-xl shadow-sm' : 'bg-transparent'
+      scrolled || isMenuOpen ? 'bg-white/95 backdrop-blur-xl shadow-sm' : 'bg-white/80 sm:bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
-              <Zap className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <span className="text-lg font-bold text-zinc-900 tracking-tight">RCSUPORTE</span>
-              <span className="hidden sm:block text-[10px] text-zinc-400 -mt-1">TELECOM</span>
-            </div>
+        <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
+          {/* Logo - smaller on mobile */}
+          <Link to="/" className="flex items-center">
+            <img
+              src="/logo-rcsuporte.webp"
+              alt="RCSUPORTE - Elétrica e Segurança 24h para Empresas e Condomínios em SP"
+              className="h-9 sm:h-12 lg:h-14 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -57,34 +67,36 @@ export default function Header() {
           </nav>
 
           {/* CTA Button */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={openTriageModal}
-              className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all hover:shadow-lg hover:shadow-red-500/25 hover:-translate-y-0.5"
+              className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg font-semibold text-sm transition-all hover:shadow-lg hover:shadow-red-500/25 min-h-[40px]"
             >
               <AlertCircle className="w-4 h-4" />
               Emergência
             </button>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - touch friendly */}
             <button
-              className="lg:hidden p-2 rounded-lg hover:bg-zinc-100 transition-colors"
+              className="lg:hidden p-2.5 rounded-lg hover:bg-zinc-100 active:bg-zinc-200 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
             >
               {isMenuOpen ? <X className="w-6 h-6 text-zinc-700" /> : <Menu className="w-6 h-6 text-zinc-700" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - fullscreen overlay */}
         {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-zinc-100 bg-white/95 backdrop-blur-xl">
-            <nav className="flex flex-col gap-1">
+          <div className="lg:hidden fixed inset-x-0 top-14 sm:top-16 bottom-0 bg-white/98 backdrop-blur-xl border-t border-zinc-100 overflow-y-auto">
+            <nav className="flex flex-col p-4 gap-2">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="px-4 py-3 text-zinc-700 font-medium rounded-lg hover:bg-zinc-50 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="px-4 py-4 text-zinc-700 font-medium rounded-xl hover:bg-zinc-50 active:bg-zinc-100 transition-colors text-base min-h-[52px] flex items-center"
                 >
                   {link.label}
                 </a>
@@ -94,9 +106,9 @@ export default function Header() {
                   setIsMenuOpen(false)
                   openTriageModal()
                 }}
-                className="mx-4 mt-2 flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-red-600 text-white px-5 py-3 rounded-lg font-semibold"
+                className="mt-4 flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-red-600 text-white px-5 py-4 rounded-xl font-semibold min-h-[56px] active:scale-[0.98] transition-transform"
               >
-                <AlertCircle className="w-4 h-4" />
+                <AlertCircle className="w-5 h-5" />
                 Emergência 24h
               </button>
             </nav>
