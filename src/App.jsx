@@ -4,9 +4,12 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import FloatingWhatsApp from './components/FloatingWhatsApp'
 import TriageModal from './components/TriageModal'
+import CalendlyWidget from './components/CalendlyWidget'
+import MobileBottomCTA from './components/MobileBottomCTA'
 import Home from './pages/Home'
 import RegionPage from './pages/RegionPage'
 import ServicePage from './pages/ServicePage'
+import ThankYou from './pages/ThankYou'
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
               <Route path="/zona-sul" element={<RegionPage />} />
               <Route path="/abc" element={<RegionPage />} />
 
+              {/* Página de Obrigado (conversão Google Ads) */}
+              <Route path="/obrigado" element={<ThankYou />} />
+
               {/* 404 - Redireciona para Home */}
               <Route path="*" element={<Home />} />
             </Routes>
@@ -37,6 +43,8 @@ function App() {
           <Footer />
           <FloatingWhatsApp />
           <TriageModal />
+          <CalendlyWidget />
+          <MobileBottomCTA />
         </div>
       </ModalProvider>
     </BrowserRouter>

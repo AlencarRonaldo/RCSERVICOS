@@ -1,191 +1,193 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Clock, Shield, BadgeCheck, CreditCard, Star, CheckCircle2,
-  Search, AlertCircle, ArrowRight, ChevronRight, Phone, MapPin,
+  Search, AlertCircle, ArrowRight, ChevronRight, ChevronLeft, Phone, MapPin,
   MessageCircle, Zap, Wrench, Award, Wallet
 } from 'lucide-react'
 import SEO from '../components/SEO'
 import { useModal } from '../context/ModalContext'
 import { SERVICES, getWhatsAppLink, CONFIG } from '../data/config'
 
-// Hero Section
+// Hero Section with Carousel
 function Hero() {
-  const [cep, setCep] = useState('')
-  const [cepStatus, setCepStatus] = useState(null)
-  const [cepMessage, setCepMessage] = useState('')
+  const [currentSlide, setCurrentSlide] = useState(0)
   const { openTriageModal } = useModal()
 
-  const checkCepRegion = (cepNumber) => {
-    const cepNum = parseInt(cepNumber, 10)
-
-    // ABC Paulista - Atendimento em até 2 horas
-    if (
-      (cepNum >= 9000000 && cepNum <= 9299999) || // Santo André
-      (cepNum >= 9300000 && cepNum <= 9399999) || // Mauá
-      (cepNum >= 9500000 && cepNum <= 9599999) || // São Caetano do Sul
-      (cepNum >= 9600000 && cepNum <= 9899999) || // São Bernardo do Campo
-      (cepNum >= 9900000 && cepNum <= 9999999)    // Diadema
-    ) {
-      return 'priority'
+  const slides = [
+    {
+      id: 'eletrica',
+      title: 'Eletricista 24h',
+      subtitle: 'Ficou no escuro? Disjuntor caindo?',
+      description: 'Técnicos identificados para casas e apartamentos. Explicamos o problema antes de fazer.',
+      image: '/pane-eletrica.png',
+      objectPosition: 'center 40%'
+    },
+    {
+      id: 'fechadura',
+      title: 'Fechadura Digital',
+      subtitle: 'Mais segurança para sua casa',
+      description: 'Instalação e conserto de fechaduras com senha, biometria ou app. Ideal para quem mora sozinho(a).',
+      image: '/fechadura-digital.png',
+      objectPosition: 'center 30%'
+    },
+    {
+      id: 'camera',
+      title: 'Câmeras de Segurança',
+      subtitle: 'Monitore sua casa pelo celular',
+      description: 'Instalação discreta, ensinamos a usar o aplicativo. Veja sua casa de qualquer lugar.',
+      image: '/cftv-cameras.png',
+      objectPosition: 'center 40%'
+    },
+    {
+      id: 'portao',
+      title: 'Portões e Interfones',
+      subtitle: 'Portão travado? Interfone mudo?',
+      description: 'Conserto rápido para você não ficar na mão. Atendimento respeitoso e transparente.',
+      image: '/portao-eletronico.png',
+      objectPosition: 'center center'
+    },
+    {
+      id: 'ti',
+      title: 'Suporte Técnico',
+      subtitle: 'Computador ou internet com problema?',
+      description: 'Atendimento paciente, explicamos de forma simples. Para casa ou home office.',
+      image: '/ti-escritorio.png',
+      objectPosition: 'center center'
     }
+  ]
 
-    if (cepNumber.startsWith('0') || cepNumber.startsWith('1')) {
-      return 'standard'
-    }
+  // Auto-rotate slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [slides.length])
 
-    return 'outside'
-  }
-
-  const handleCepCheck = (e) => {
-    e.preventDefault()
-    const cleanCep = cep.replace(/\D/g, '')
-    if (cleanCep.length === 8) {
-      const region = checkCepRegion(cleanCep)
-
-      if (region === 'priority') {
-        setCepStatus('priority')
-        setCepMessage('ABC Paulista - Atendimento em até 2 horas!')
-      } else if (region === 'standard') {
-        setCepStatus('standard')
-        setCepMessage('São Paulo e região - Atendimento de 2 a 4 horas')
-      } else {
-        setCepStatus('outside')
-        setCepMessage('Consulte disponibilidade via WhatsApp')
-      }
-    }
-  }
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length)
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
 
   return (
-    <section className="pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-40 lg:pb-28 bg-gradient-to-b from-zinc-50 to-white relative overflow-hidden">
-      {/* Background decorations - hidden on mobile for performance */}
-      <div className="hidden sm:block absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-50" />
-      <div className="hidden sm:block absolute top-20 right-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl" />
-      <div className="hidden sm:block absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-500/5 rounded-full blur-3xl" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Emergency badge */}
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-green-50 text-green-700 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-8 border border-green-100">
-            <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-            <span>Técnicos identificados • Atendimento seguro e transparente</span>
+    <section className="relative pt-14 sm:pt-16 lg:pt-20 h-[650px] sm:h-[700px] lg:h-[750px] overflow-hidden z-0">
+      {/* Slides */}
+      {slides.map((slide, index) => (
+        <div
+          key={slide.id}
+          className={`absolute inset-0 transition-opacity duration-700 ${
+            index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+          }`}
+        >
+          {/* Background Image */}
+          <div className="absolute inset-0 bg-zinc-900">
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className="w-full h-full object-cover"
+              style={{ objectPosition: slide.objectPosition }}
+            />
+            {/* Leve escurecimento para legibilidade do texto */}
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
           </div>
 
-          {/* Main headline - mobile-first typography */}
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-zinc-900 leading-tight sm:leading-[1.1] tracking-tight mb-4 sm:mb-6 px-2 sm:px-0">
-            Problemas elétricos{' '}
-            <span className="bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
-              em casa?
-            </span>
-            <br className="sm:hidden" />
-            {' '}
-            <br className="hidden sm:block lg:hidden" />
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              A gente resolve com segurança.
-            </span>
-          </h1>
-
-          {/* Description - optimized for mobile reading */}
-          <p className="text-sm sm:text-lg lg:text-xl text-zinc-500 mb-6 sm:mb-10 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
-            Atendimento para{' '}
-            <strong className="text-zinc-700">casas, apartamentos, empresas e condomínios.</strong>{' '}
-            <span className="hidden sm:inline">Técnicos identificados, explicamos cada etapa do serviço. Atendimento respeitoso e transparente.</span>
-          </p>
-
-          {/* CEP Search - mobile optimized */}
-          <form onSubmit={handleCepCheck} className="max-w-md mx-auto mb-6 sm:mb-8 px-2 sm:px-0">
-            <div className="relative flex flex-col sm:flex-row gap-2 sm:gap-0">
-              <div className="relative flex-1">
-                <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
-                  <Search className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400" />
-                </div>
-                <input
-                  type="text"
-                  value={cep}
-                  onChange={(e) => {
-                    setCep(e.target.value)
-                    setCepStatus(null)
-                    setCepMessage('')
-                  }}
-                  placeholder="Digite seu CEP"
-                  className="w-full pl-10 sm:pl-12 pr-4 sm:pr-28 py-3.5 sm:py-4 bg-white border border-zinc-200 rounded-xl text-base text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm min-h-[44px]"
-                  maxLength={9}
-                  inputMode="numeric"
-                />
+          {/* Content */}
+          <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
+            <div className="max-w-2xl pt-16 sm:pt-20">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
+                <Shield className="w-4 h-4" />
+                <span>Técnicos identificados • Atendimento seguro</span>
               </div>
-              <button
-                type="submit"
-                className="sm:absolute sm:right-2 sm:top-1/2 sm:-translate-y-1/2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-5 py-3 sm:py-2.5 rounded-xl sm:rounded-lg font-semibold text-sm transition-all min-h-[44px] active:scale-[0.98]"
-              >
-                Verificar
-              </button>
+
+              {/* Title */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+                {slide.title}
+              </h1>
+
+              {/* Subtitle */}
+              <p className="text-xl sm:text-2xl lg:text-3xl text-white/90 font-medium mb-4">
+                {slide.subtitle}
+              </p>
+
+              {/* Description */}
+              <p className="text-base sm:text-lg text-white/80 mb-8 max-w-xl leading-relaxed">
+                {slide.description}
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <button
+                  onClick={openTriageModal}
+                  className="flex items-center justify-center gap-2 bg-white text-zinc-900 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-all hover:bg-zinc-100 active:scale-[0.98] min-h-[48px]"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Falar com Técnico
+                </button>
+                <a
+                  href="#servicos"
+                  className="flex items-center justify-center gap-2 bg-white/20 backdrop-blur-sm text-white border-2 border-white/30 px-6 py-3.5 rounded-xl font-bold text-base transition-all hover:bg-white/30 active:scale-[0.98] min-h-[48px]"
+                >
+                  Ver Todos os Serviços
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
             </div>
-            {cepStatus === 'priority' && (
-              <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-xl">
-                <p className="text-xs sm:text-sm text-green-700 font-semibold flex items-center justify-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                  {cepMessage}
-                </p>
-                <p className="text-xs text-green-600 mt-1">
-                  Diadema, São Bernardo, Santo André, Mauá e São Caetano
-                </p>
-              </div>
-            )}
-            {cepStatus === 'standard' && (
-              <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-blue-50 border border-blue-200 rounded-xl">
-                <p className="text-xs sm:text-sm text-blue-700 font-semibold flex items-center justify-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                  {cepMessage}
-                </p>
-                <p className="text-xs text-blue-600 mt-1">
-                  Atendemos toda a Grande São Paulo
-                </p>
-              </div>
-            )}
-            {cepStatus === 'outside' && (
-              <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-amber-50 border border-amber-200 rounded-xl">
-                <p className="text-xs sm:text-sm text-amber-700 font-semibold flex items-center justify-center gap-2">
-                  <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                  {cepMessage}
-                </p>
-                <p className="text-xs text-amber-600 mt-1">
-                  Entre em contato para verificar disponibilidade
-                </p>
-              </div>
-            )}
-          </form>
-
-          {/* CTA Buttons - touch-friendly with min-height */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-2 sm:px-0">
-            <button
-              onClick={openTriageModal}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-all hover:shadow-xl hover:shadow-green-500/25 active:scale-[0.98] min-h-[48px] sm:min-h-[56px]"
-            >
-              <MessageCircle className="w-5 h-5" />
-              <span className="sm:hidden">PRECISO DE CONSERTO</span>
-              <span className="hidden sm:inline">PRECISO DE CONSERTO AGORA</span>
-            </button>
-            <a
-              href="#servicos"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-zinc-900 font-bold px-6 py-3.5 sm:py-4 rounded-xl transition-all hover:shadow-xl hover:shadow-amber-500/25 active:scale-[0.98] min-h-[48px] sm:min-h-[56px]"
-            >
-              Qual problema você tem?
-              <ArrowRight className="w-4 h-4" />
-            </a>
           </div>
+        </div>
+      ))}
 
-          {/* Trust Indicators - responsive grid */}
-          <div className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 px-4 sm:px-0">
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-zinc-500 bg-white/80 sm:bg-transparent py-2 sm:py-0 rounded-lg">
-              <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 flex-shrink-0" />
-              <span>Técnicos identificados e uniformizados</span>
+      {/* Navigation Arrows */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all"
+        aria-label="Slide anterior"
+      >
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all"
+        aria-label="Próximo slide"
+      >
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+      </button>
+
+      {/* Dots Navigation */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {slides.map((slide, index) => (
+          <button
+            key={slide.id}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all ${
+              index === currentSlide
+                ? 'bg-white w-8 sm:w-10'
+                : 'bg-white/50 hover:bg-white/70'
+            }`}
+            aria-label={`Ir para ${slide.title}`}
+          />
+        ))}
+      </div>
+
+      {/* Trust Bar */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 bg-white/95 backdrop-blur-sm border-t border-zinc-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-zinc-600">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-green-500" />
+              <span>Técnicos identificados</span>
             </div>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-zinc-500 bg-white/80 sm:bg-transparent py-2 sm:py-0 rounded-lg">
-              <Star className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 fill-amber-500 flex-shrink-0" />
-              <span>4.9 no Google • +500 clientes satisfeitos</span>
+            <div className="flex items-center gap-2">
+              <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+              <span>4.9 no Google</span>
             </div>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-zinc-500 bg-white/80 sm:bg-transparent py-2 sm:py-0 rounded-lg">
-              <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0" />
-              <span>Atendimento seguro para você e sua família</span>
+            <div className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-blue-500" />
+              <span>Atendimento seguro</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-purple-500" />
+              <span>24h, 7 dias</span>
             </div>
           </div>
         </div>
@@ -227,7 +229,9 @@ function Services() {
                   src={service.image}
                   alt={service.title}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                    service.imagePosition === 'top' ? 'object-top' : 'object-center'
+                  }`}
                 />
                 <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-red-500 text-white text-[10px] sm:text-xs font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded">
                   URGENTE
@@ -482,7 +486,8 @@ function FAQ() {
 function Contact() {
   const [form, setForm] = useState({ nome: '', telefone: '', servico: '', mensagem: '' })
   const [errors, setErrors] = useState({})
-  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
   const { openTriageModal } = useModal()
 
   const validate = () => {
@@ -494,13 +499,32 @@ function Contact() {
     return newErrors
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const newErrors = validate()
     if (Object.keys(newErrors).length === 0) {
-      const message = `Olá! Meu nome é ${form.nome}.\n\nTelefone: ${form.telefone}\nServiço: ${form.servico}\n\n${form.mensagem || 'Gostaria de solicitar um orçamento.'}`
-      window.open(getWhatsAppLink(message), '_blank')
-      setSubmitted(true)
+      setLoading(true)
+      try {
+        const response = await fetch('https://formspree.io/f/mdalogkw', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nome: form.nome,
+            telefone: form.telefone,
+            servico: form.servico,
+            mensagem: form.mensagem || 'Gostaria de solicitar um orçamento.'
+          })
+        })
+        if (response.ok) {
+          navigate('/obrigado')
+        } else {
+          alert('Erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp.')
+        }
+      } catch (error) {
+        alert('Erro ao enviar. Tente novamente ou entre em contato pelo WhatsApp.')
+      } finally {
+        setLoading(false)
+      }
     } else {
       setErrors(newErrors)
     }
@@ -557,17 +581,7 @@ function Contact() {
 
           {/* Contact form */}
           <div className="bg-white rounded-2xl p-5 sm:p-8 border border-zinc-100 shadow-sm">
-            {submitted ? (
-              <div className="text-center py-8 sm:py-12">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                  <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8 text-green-600" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-zinc-900 mb-2">Mensagem enviada!</h3>
-                <p className="text-zinc-500 text-sm sm:text-base">Você foi redirecionado para o WhatsApp.</p>
-              </div>
-            ) : (
-              <>
-                <h3 className="text-lg sm:text-xl font-bold text-zinc-900 mb-4 sm:mb-6">Solicite um orçamento</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-zinc-900 mb-4 sm:mb-6">Solicite um orçamento</h3>
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                   <div>
                     <label className="block text-xs sm:text-sm font-medium text-zinc-700 mb-1.5 sm:mb-2">Nome completo *</label>
@@ -582,7 +596,7 @@ function Contact() {
                   </div>
 
                   <div>
-                    <label className="block text-xs sm:text-sm font-medium text-zinc-700 mb-1.5 sm:mb-2">WhatsApp *</label>
+                    <label className="block text-xs sm:text-sm font-medium text-zinc-700 mb-1.5 sm:mb-2">Telefone/WhatsApp *</label>
                     <input
                       type="tel"
                       value={form.telefone}
@@ -623,13 +637,12 @@ function Contact() {
 
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3.5 sm:py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-blue-500/25 min-h-[48px] active:scale-[0.98]"
+                    disabled={loading}
+                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3.5 sm:py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-blue-500/25 min-h-[48px] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    Enviar via WhatsApp
+                    {loading ? 'Enviando...' : 'Solicitar Orçamento'}
                   </button>
                 </form>
-              </>
-            )}
           </div>
         </div>
       </div>

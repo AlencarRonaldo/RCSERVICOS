@@ -64,6 +64,7 @@ export const SERVICES = [
     features: ['Técnicos identificados', 'Orçamento antes', 'Atendimento seguro'],
     buttonColor: 'bg-blue-500 hover:bg-blue-600',
     image: '/pane-eletrica.png',
+    imagePosition: 'center',
     whatsappMessage: 'Olá! Preciso de eletricista para minha casa/apartamento.'
   },
   {
@@ -76,6 +77,7 @@ export const SERVICES = [
     features: ['Mais segurança', 'Fácil de usar', 'Todas as marcas'],
     buttonColor: 'bg-orange-500 hover:bg-orange-600',
     image: '/fechadura-digital.png',
+    imagePosition: 'center',
     whatsappMessage: 'Olá! Quero instalar fechadura digital na minha casa/apartamento.'
   },
   {
@@ -88,6 +90,7 @@ export const SERVICES = [
     features: ['Acesso pelo celular', 'Instalação discreta', 'Ensinamos a usar'],
     buttonColor: 'bg-red-500 hover:bg-red-600',
     image: '/cftv-cameras.png',
+    imagePosition: 'center',
     whatsappMessage: 'Olá! Quero instalar câmeras de segurança na minha casa.'
   },
   {
@@ -100,6 +103,7 @@ export const SERVICES = [
     features: ['Conserto rápido', 'Técnico identificado', 'Portões e interfones'],
     buttonColor: 'bg-emerald-500 hover:bg-emerald-600',
     image: '/portao-eletronico.png',
+    imagePosition: 'center',
     whatsappMessage: 'Olá! Preciso de conserto de portão/interfone.'
   },
   {
@@ -111,7 +115,8 @@ export const SERVICES = [
     fullDescription: 'Suporte técnico para sua casa ou escritório. Computador lento, internet caindo, impressora com problema? Atendimento paciente e didático - explicamos de forma simples o que está acontecendo. Também atendemos pequenas empresas e home office.',
     features: ['Explicação simples', 'Casa ou escritório', 'Atendimento paciente'],
     buttonColor: 'bg-purple-500 hover:bg-purple-600',
-    image: '/ti-escritorio.jpg',
+    image: '/ti-escritorio.png',
+    imagePosition: 'top',
     whatsappMessage: 'Olá! Preciso de ajuda com computador/internet.'
   }
 ]

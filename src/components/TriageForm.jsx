@@ -125,29 +125,29 @@ export default function TriageForm({ onSuccess }) {
     }
   }
 
-  const inputBaseClass = "w-full pl-12 pr-4 py-3.5 bg-white border rounded-xl text-zinc-800 placeholder-zinc-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+  const inputBaseClass = "w-full pl-10 sm:pl-12 pr-4 py-3 sm:py-3.5 bg-white border rounded-xl text-base text-zinc-800 placeholder-zinc-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 min-h-[44px]"
   const inputErrorClass = "border-red-300 bg-red-50/50"
   const inputNormalClass = "border-zinc-200 hover:border-zinc-300"
 
   return (
     <div className="w-full max-w-lg mx-auto">
-      <div className="bg-white rounded-2xl shadow-xl shadow-zinc-200/50 border border-zinc-100 overflow-hidden">
+      <div className="bg-white rounded-t-2xl sm:rounded-2xl shadow-xl shadow-zinc-200/50 border border-zinc-100 overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-5">
-          <h2 className="text-xl font-bold text-white">Solicite seu Reparo</h2>
-          <p className="text-blue-100 text-sm mt-1">Preencha os dados e entraremos em contato</p>
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-4 sm:px-6 py-4 sm:py-5 pt-6 sm:pt-5">
+          <h2 className="text-lg sm:text-xl font-bold text-white">Solicite seu Reparo</h2>
+          <p className="text-blue-100 text-xs sm:text-sm mt-1">Preencha os dados e entraremos em contato</p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-5">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 sm:space-y-5">
           {/* Nome */}
           <div>
-            <label htmlFor="nome" className="block text-sm font-medium text-zinc-700 mb-2">
+            <label htmlFor="nome" className="block text-xs sm:text-sm font-medium text-zinc-700 mb-1.5 sm:mb-2">
               Nome Completo
             </label>
             <div className="relative">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400">
-                <User className="w-5 h-5" />
+              <div className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400">
+                <User className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <input
                 type="text"
@@ -157,12 +157,13 @@ export default function TriageForm({ onSuccess }) {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Digite seu nome completo"
+                autoComplete="name"
                 className={`${inputBaseClass} ${touched.nome && errors.nome ? inputErrorClass : inputNormalClass}`}
               />
             </div>
             {touched.nome && errors.nome && (
-              <p className="mt-1.5 text-sm text-red-500 flex items-center gap-1">
-                <AlertTriangle className="w-3.5 h-3.5" />
+              <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center gap-1">
+                <AlertTriangle className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
                 {errors.nome}
               </p>
             )}
@@ -170,12 +171,12 @@ export default function TriageForm({ onSuccess }) {
 
           {/* Endereço */}
           <div>
-            <label htmlFor="endereco" className="block text-sm font-medium text-zinc-700 mb-2">
+            <label htmlFor="endereco" className="block text-xs sm:text-sm font-medium text-zinc-700 mb-1.5 sm:mb-2">
               Endereço Completo com Bairro
             </label>
             <div className="relative">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400">
-                <MapPin className="w-5 h-5" />
+              <div className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <input
                 type="text"
@@ -185,12 +186,13 @@ export default function TriageForm({ onSuccess }) {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Rua, número, bairro, cidade"
+                autoComplete="street-address"
                 className={`${inputBaseClass} ${touched.endereco && errors.endereco ? inputErrorClass : inputNormalClass}`}
               />
             </div>
             {touched.endereco && errors.endereco && (
-              <p className="mt-1.5 text-sm text-red-500 flex items-center gap-1">
-                <AlertTriangle className="w-3.5 h-3.5" />
+              <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center gap-1">
+                <AlertTriangle className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
                 {errors.endereco}
               </p>
             )}
@@ -198,12 +200,12 @@ export default function TriageForm({ onSuccess }) {
 
           {/* Problema */}
           <div>
-            <label htmlFor="problema" className="block text-sm font-medium text-zinc-700 mb-2">
+            <label htmlFor="problema" className="block text-xs sm:text-sm font-medium text-zinc-700 mb-1.5 sm:mb-2">
               O que aconteceu?
             </label>
             <div className="relative">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400">
-                <Wrench className="w-5 h-5" />
+              <div className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-zinc-400">
+                <Wrench className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <select
                 id="problema"
@@ -245,13 +247,13 @@ export default function TriageForm({ onSuccess }) {
                   ))}
                 </optgroup>
               </select>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none">
-                <ChevronDown className="w-5 h-5" />
+              <div className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none">
+                <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </div>
             {touched.problema && errors.problema && (
-              <p className="mt-1.5 text-sm text-red-500 flex items-center gap-1">
-                <AlertTriangle className="w-3.5 h-3.5" />
+              <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center gap-1">
+                <AlertTriangle className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
                 {errors.problema}
               </p>
             )}
@@ -259,14 +261,14 @@ export default function TriageForm({ onSuccess }) {
 
           {/* Urgência */}
           <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-3">
+            <label className="block text-xs sm:text-sm font-medium text-zinc-700 mb-2 sm:mb-3">
               Nível de Urgência
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
               {URGENCY_LEVELS.map(level => (
                 <label
                   key={level.value}
-                  className={`relative flex flex-col items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
+                  className={`relative flex flex-col items-center p-2.5 sm:p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 min-h-[60px] sm:min-h-[72px] active:scale-[0.98] ${
                     formData.urgencia === level.value
                       ? `${level.bg} ring-2 ${level.checked}`
                       : 'bg-zinc-50 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-100/50'
@@ -280,18 +282,18 @@ export default function TriageForm({ onSuccess }) {
                     onChange={handleChange}
                     className="sr-only"
                   />
-                  <span className={`text-sm font-semibold ${formData.urgencia === level.value ? level.color : 'text-zinc-700'}`}>
+                  <span className={`text-xs sm:text-sm font-semibold text-center ${formData.urgencia === level.value ? level.color : 'text-zinc-700'}`}>
                     {level.label}
                   </span>
-                  <span className={`text-xs mt-1 text-center ${formData.urgencia === level.value ? level.color : 'text-zinc-500'}`}>
+                  <span className={`text-[10px] sm:text-xs mt-0.5 sm:mt-1 text-center leading-tight ${formData.urgencia === level.value ? level.color : 'text-zinc-500'}`}>
                     {level.description}
                   </span>
                 </label>
               ))}
             </div>
             {touched.urgencia && errors.urgencia && (
-              <p className="mt-2 text-sm text-red-500 flex items-center gap-1">
-                <AlertTriangle className="w-3.5 h-3.5" />
+              <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-red-500 flex items-center gap-1">
+                <AlertTriangle className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
                 {errors.urgencia}
               </p>
             )}
@@ -300,13 +302,13 @@ export default function TriageForm({ onSuccess }) {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-green-500/25 hover:-translate-y-0.5 active:translate-y-0 mt-6"
+            className="w-full flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3.5 sm:py-4 px-6 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-green-500/25 active:scale-[0.98] mt-4 sm:mt-6 min-h-[52px]"
           >
-            <Send className="w-5 h-5" />
-            Solicitar Reparo Agora
+            <Send className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="text-sm sm:text-base">Solicitar Reparo Agora</span>
           </button>
 
-          <p className="text-center text-xs text-zinc-500 mt-4">
+          <p className="text-center text-[10px] sm:text-xs text-zinc-500 mt-3 sm:mt-4 pb-2 sm:pb-0">
             Ao clicar, você será redirecionado para o WhatsApp
           </p>
         </form>

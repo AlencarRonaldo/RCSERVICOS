@@ -136,7 +136,9 @@ export default function RegionPage() {
                   <img
                     src={service.image}
                     alt={service.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                      service.imagePosition === 'top' ? 'object-top' : 'object-center'
+                    }`}
                   />
                 </div>
                 <div className="p-5 text-center">
